@@ -181,51 +181,51 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NexGenModel.Context.cs">
+    <Compile Include="Models\NexGenEntityModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NexGenModel.Context.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NexGenModel.cs">
+    <Compile Include="Models\NexGenEntityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NexGenModel.Designer.cs">
+    <Compile Include="Models\NexGenEntityModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NexGenModel.edmx</DependentUpon>
+      <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\tblAuditIntervention.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblClient.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblDefaultIntervention.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblIntervention.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblUser.cs">
-      <DependentUpon>NexGenModel.tt</DependentUpon>
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -241,24 +241,24 @@
     <Content Include="Controllers\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\NexGenModel.Context.tt">
+    <Content Include="Models\NexGenEntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NexGenModel.edmx</DependentUpon>
-      <LastGenOutput>NexGenModel.Context.cs</LastGenOutput>
+      <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
+      <LastGenOutput>NexGenEntityModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\NexGenModel.tt">
+    <Content Include="Models\NexGenEntityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NexGenModel.edmx</DependentUpon>
-      <LastGenOutput>NexGenModel.cs</LastGenOutput>
+      <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
+      <LastGenOutput>NexGenEntityModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\NexGenModel.edmx">
+    <EntityDeploy Include="Models\NexGenEntityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NexGenModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>NexGenEntityModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\NexGenModel.edmx.diagram">
-      <DependentUpon>NexGenModel.edmx</DependentUpon>
+    <Content Include="Models\NexGenEntityModel.edmx.diagram">
+      <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -307,7 +307,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shared\_SiteEngineerLayoutPage.cshtml" />
     <Content Include="Views\SiteEngineer\Index.cshtml" />
-    <Content Include="Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Views\Shared\_AccountantLayoutPage.cshtml" />
     <Content Include="Views\Shared\_ManagerLayoutPage.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
   </ItemGroup>

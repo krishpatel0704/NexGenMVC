@@ -13,10 +13,10 @@ namespace NexGenMVC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DefaultConnectionString : DbContext
+    public partial class DefaultConnectionEntities : DbContext
     {
-        public DefaultConnectionString()
-            : base("name=DefaultConnectionString")
+        public DefaultConnectionEntities()
+            : base("name=DefaultConnectionEntities")
         {
         }
     

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'I:\NexGenMVC\NexGenMVC\Models\NexGenModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Jaymin\Downloads\NexGenMVC-master(1)\NexGenMVC-master\NexGenMVC\Models\NexGenEntityModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

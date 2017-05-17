@@ -10,7 +10,7 @@ namespace NexGenMVC.Controllers
 {
     public class HomeController : Controller
     {
-        DefaultConnectionString db = new DefaultConnectionString();
+        DefaultConnectionEntities db = new DefaultConnectionEntities();
         [Authorize(Roles="Site Engineer")]
         public ActionResult Index()
         {

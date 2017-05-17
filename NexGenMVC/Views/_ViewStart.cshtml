@@ -1,5 +1,24 @@
-﻿@{
+﻿@*@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+@{
+    if (this.User.IsInRole("Accountant"))
+    {
+        Layout = "~/Views/Shared/_AccountantLayoutPage.cshtml";
+
+    }
+    else if(this.User.IsInRole("Site Engineer"))
+    {
+        Layout = "~/Views/Shared/_SiteEngineerLayoutPage.cshtml";
+    }
+    else if(this.User.IsInRole("Manager"))
+    {
+        Layout = "~/Views/Shared/_ManagerLayoutPage.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 @*@{
     string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
