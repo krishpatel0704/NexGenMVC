@@ -1,0 +1,82 @@
+﻿@model IEnumerable<NexGenMVC.Models.tblIntervention>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ManagerLayoutPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.managerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.district)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblClient.clientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUser.userName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.managerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.district)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblClient.clientName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.userName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.interventionId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.interventionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.interventionId })
+        </td>
+    </tr>
+}
+
+</table>

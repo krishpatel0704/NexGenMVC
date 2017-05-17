@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+        @*<div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a  href="~/">Home</a></li>
+                <asp:LoginView ID="LoginView1">
+                    <RoleGroups>
+                        <asp:RoleGroup Roles="SiteEngineer">
+                            <ContentTemplate>
+                                <li><a href="~/Intervention">Interventions</a></li>
+                                <li><a  href="~/Clients">Clients</a></li>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                        <asp:RoleGroup Roles="Manager">
+                            <ContentTemplate>
+                                <li><a href="~/InterventionApproval">Intervention Approval</a></li>
+                                <li><a href="~/Clients">Clients</a></li>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                        <asp:RoleGroup Roles="Accountant">
+                            <ContentTemplate>
+                                <li><a  href="~/ManageEmployees">Manage Employee</a></li>
+                                <li><a  href="~/Reports">Reports</a></li>
+
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                    </RoleGroups>
+                </asp:LoginView>
+
+            </ul>
+            <asp:LoginView  ViewStateMode="Disabled">
+                <AnonymousTemplate>
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li><a  href="~/Account/Login">Log in</a></li>
+                    </ul>
+                </AnonymousTemplate>
+                <LoggedInTemplate>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a >Hello, <%: Context.User.Identity.GetUserName()  %> !       </a></li>
+                        <li><a href="~/Account/ManagePassword" title="Change Password">      Change Password</a></li>
+                        <li>
+                            <asp:LoginStatus  LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                        </li>
+                    </ul>
+                </LoggedInTemplate>
+            </asp:LoginView>
+        </div>*@
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
