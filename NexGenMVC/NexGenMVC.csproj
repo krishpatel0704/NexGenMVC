@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AspNetUsers.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\SiteEngineerController.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
