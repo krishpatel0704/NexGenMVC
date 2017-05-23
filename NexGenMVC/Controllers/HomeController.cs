@@ -53,7 +53,7 @@ namespace NexGenMVC.Controllers
 
         public ActionResult CheckForDefaultCost(string UserID)
         {
-            var DefaultCost = db.tblUsers.Where(x => x.userId == UserID).FirstOrDefault().userCostAllowed;
+            var DefaultCost = db.Users.Where(x => x.userId == UserID).FirstOrDefault().userCostAllowed;
             if(Convert.ToDouble(DefaultCost)<20)
             {
                 return View("View1");

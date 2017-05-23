@@ -12,7 +12,7 @@ namespace NexGenMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblDefaultIntervention
+    public partial class DefaultIntervention
     {
         public string interventionTypeId { get; set; }
         public string interventionName { get; set; }

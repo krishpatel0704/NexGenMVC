@@ -12,12 +12,12 @@ namespace NexGenMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblClient
+    public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblClient()
+        public Client()
         {
-            this.tblInterventions = new HashSet<tblIntervention>();
+            this.Intervention = new HashSet<Intervention>();
         }
     
         public string clientId { get; set; }
@@ -26,6 +26,6 @@ namespace NexGenMVC.Models
         public string clientDesLocation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblIntervention> tblInterventions { get; set; }
+        public virtual ICollection<Intervention> Intervention { get; set; }
     }
 }

@@ -30,10 +30,10 @@ namespace NexGenMVC.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<tblAuditIntervention> tblAuditInterventions { get; set; }
-        public virtual DbSet<tblClient> tblClients { get; set; }
-        public virtual DbSet<tblDefaultIntervention> tblDefaultInterventions { get; set; }
-        public virtual DbSet<tblIntervention> tblInterventions { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<AuditIntervention> AuditInterventions { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<DefaultIntervention> DefaultInterventions { get; set; }
+        public virtual DbSet<Intervention> Interventions { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

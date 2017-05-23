@@ -335,7 +335,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="tblAuditIntervention">
+        <EntityType Name="AuditIntervention">
           <Key>
             <PropertyRef Name="auditId" />
           </Key>
@@ -345,10 +345,10 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Name="interventionLife" Type="Int32" Nullable="false" />
           <Property Name="interventionComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="userId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="tblIntervention" Relationship="Self.FK__tblAuditI__inter__403A8C7D" FromRole="tblAuditIntervention" ToRole="tblIntervention" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblAuditI__userI__412EB0B6" FromRole="tblAuditIntervention" ToRole="tblUsers" />
+          <NavigationProperty Name="Intervention" Relationship="Self.FK__tblAuditI__inter__403A8C7D" FromRole="tblAuditIntervention" ToRole="tblIntervention" />
+          <NavigationProperty Name="User" Relationship="Self.FK__tblAuditI__userI__412EB0B6" FromRole="tblAuditIntervention" ToRole="tblUsers" />
         </EntityType>
-        <EntityType Name="tblClient">
+        <EntityType Name="Client">
           <Key>
             <PropertyRef Name="clientId" />
           </Key>
@@ -356,9 +356,9 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Name="clientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="clientDistrict" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="clientDesLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="tblInterventions" Relationship="Self.FK__tblInterv__clien__3A81B327" FromRole="tblClient" ToRole="tblIntervention" />
+          <NavigationProperty Name="Intervention" Relationship="Self.FK__tblInterv__clien__3A81B327" FromRole="tblClient" ToRole="tblIntervention" />
         </EntityType>
-        <EntityType Name="tblDefaultIntervention">
+        <EntityType Name="DefaultIntervention">
           <Key>
             <PropertyRef Name="interventionTypeId" />
           </Key>
@@ -367,7 +367,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Name="interventionDefaultCost" Type="Double" Nullable="false" />
           <Property Name="interventionDefaultHours" Type="Double" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblIntervention">
+        <EntityType Name="Intervention">
           <Key>
             <PropertyRef Name="interventionId" />
           </Key>
@@ -381,11 +381,11 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Name="interventionDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="interventionTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="district" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblAuditInterventions" Relationship="Self.FK__tblAuditI__inter__403A8C7D" FromRole="tblIntervention" ToRole="tblAuditIntervention" />
-          <NavigationProperty Name="tblClient" Relationship="Self.FK__tblInterv__clien__3A81B327" FromRole="tblIntervention" ToRole="tblClient" />
-          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblInterv__userI__3B75D760" FromRole="tblIntervention" ToRole="tblUsers" />
+          <NavigationProperty Name="AuditIntervention" Relationship="Self.FK__tblAuditI__inter__403A8C7D" FromRole="tblIntervention" ToRole="tblAuditIntervention" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__tblInterv__clien__3A81B327" FromRole="tblIntervention" ToRole="tblClient" />
+          <NavigationProperty Name="User" Relationship="Self.FK__tblInterv__userI__3B75D760" FromRole="tblIntervention" ToRole="tblUsers" />
         </EntityType>
-        <EntityType Name="tblUser">
+        <EntityType Name="User">
           <Key>
             <PropertyRef Name="userId" />
           </Key>
@@ -394,8 +394,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Name="userDistrict" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="userHourAllowed" Type="Int32" />
           <Property Name="userCostAllowed" Type="Double" />
-          <NavigationProperty Name="tblAuditInterventions" Relationship="Self.FK__tblAuditI__userI__412EB0B6" FromRole="tblUsers" ToRole="tblAuditIntervention" />
-          <NavigationProperty Name="tblInterventions" Relationship="Self.FK__tblInterv__userI__3B75D760" FromRole="tblUsers" ToRole="tblIntervention" />
+          <NavigationProperty Name="AuditIntervention" Relationship="Self.FK__tblAuditI__userI__412EB0B6" FromRole="tblUsers" ToRole="tblAuditIntervention" />
+          <NavigationProperty Name="Intervention" Relationship="Self.FK__tblInterv__userI__3B75D760" FromRole="tblUsers" ToRole="tblIntervention" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -426,8 +426,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblAuditI__inter__403A8C7D">
-          <End Role="tblIntervention" Type="Self.tblIntervention" Multiplicity="1" />
-          <End Role="tblAuditIntervention" Type="Self.tblAuditIntervention" Multiplicity="*" />
+          <End Role="tblIntervention" Type="DefaultConnectionModel.Intervention" Multiplicity="1" />
+          <End Role="tblAuditIntervention" Type="DefaultConnectionModel.AuditIntervention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblIntervention">
               <PropertyRef Name="interventionId" />
@@ -438,8 +438,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblAuditI__userI__412EB0B6">
-          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
-          <End Role="tblAuditIntervention" Type="Self.tblAuditIntervention" Multiplicity="*" />
+          <End Role="tblUsers" Type="DefaultConnectionModel.User" Multiplicity="1" />
+          <End Role="tblAuditIntervention" Type="DefaultConnectionModel.AuditIntervention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUsers">
               <PropertyRef Name="userId" />
@@ -450,8 +450,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblInterv__clien__3A81B327">
-          <End Role="tblClient" Type="Self.tblClient" Multiplicity="1" />
-          <End Role="tblIntervention" Type="Self.tblIntervention" Multiplicity="*" />
+          <End Role="tblClient" Type="DefaultConnectionModel.Client" Multiplicity="1" />
+          <End Role="tblIntervention" Type="DefaultConnectionModel.Intervention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblClient">
               <PropertyRef Name="clientId" />
@@ -462,8 +462,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__tblInterv__userI__3B75D760">
-          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
-          <End Role="tblIntervention" Type="Self.tblIntervention" Multiplicity="*" />
+          <End Role="tblUsers" Type="DefaultConnectionModel.User" Multiplicity="1" />
+          <End Role="tblIntervention" Type="DefaultConnectionModel.Intervention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUsers">
               <PropertyRef Name="userId" />
@@ -483,11 +483,11 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="tblAuditInterventions" EntityType="Self.tblAuditIntervention" />
-          <EntitySet Name="tblClients" EntityType="Self.tblClient" />
-          <EntitySet Name="tblDefaultInterventions" EntityType="Self.tblDefaultIntervention" />
-          <EntitySet Name="tblInterventions" EntityType="Self.tblIntervention" />
-          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <EntitySet Name="AuditInterventions" EntityType="DefaultConnectionModel.AuditIntervention" />
+          <EntitySet Name="Clients" EntityType="DefaultConnectionModel.Client" />
+          <EntitySet Name="DefaultInterventions" EntityType="DefaultConnectionModel.DefaultIntervention" />
+          <EntitySet Name="Interventions" EntityType="DefaultConnectionModel.Intervention" />
+          <EntitySet Name="Users" EntityType="DefaultConnectionModel.User" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -497,20 +497,20 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
           <AssociationSet Name="FK__tblAuditI__inter__403A8C7D" Association="Self.FK__tblAuditI__inter__403A8C7D">
-            <End Role="tblIntervention" EntitySet="tblInterventions" />
-            <End Role="tblAuditIntervention" EntitySet="tblAuditInterventions" />
+            <End Role="tblIntervention" EntitySet="Interventions" />
+            <End Role="tblAuditIntervention" EntitySet="AuditInterventions" />
           </AssociationSet>
           <AssociationSet Name="FK__tblAuditI__userI__412EB0B6" Association="Self.FK__tblAuditI__userI__412EB0B6">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblAuditIntervention" EntitySet="tblAuditInterventions" />
+            <End Role="tblUsers" EntitySet="Users" />
+            <End Role="tblAuditIntervention" EntitySet="AuditInterventions" />
           </AssociationSet>
           <AssociationSet Name="FK__tblInterv__clien__3A81B327" Association="Self.FK__tblInterv__clien__3A81B327">
-            <End Role="tblClient" EntitySet="tblClients" />
-            <End Role="tblIntervention" EntitySet="tblInterventions" />
+            <End Role="tblClient" EntitySet="Clients" />
+            <End Role="tblIntervention" EntitySet="Interventions" />
           </AssociationSet>
           <AssociationSet Name="FK__tblInterv__userI__3B75D760" Association="Self.FK__tblInterv__userI__3B75D760">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblIntervention" EntitySet="tblInterventions" />
+            <End Role="tblUsers" EntitySet="Users" />
+            <End Role="tblIntervention" EntitySet="Interventions" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -578,8 +578,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblAuditInterventions">
-            <EntityTypeMapping TypeName="DefaultConnectionModel.tblAuditIntervention">
+          <EntitySetMapping Name="AuditInterventions">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.AuditIntervention">
               <MappingFragment StoreEntitySet="tblAuditIntervention">
                 <ScalarProperty Name="auditId" ColumnName="auditId" />
                 <ScalarProperty Name="interventionId" ColumnName="interventionId" />
@@ -590,8 +590,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblClients">
-            <EntityTypeMapping TypeName="DefaultConnectionModel.tblClient">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Client">
               <MappingFragment StoreEntitySet="tblClient">
                 <ScalarProperty Name="clientId" ColumnName="clientId" />
                 <ScalarProperty Name="clientName" ColumnName="clientName" />
@@ -600,8 +600,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblDefaultInterventions">
-            <EntityTypeMapping TypeName="DefaultConnectionModel.tblDefaultIntervention">
+          <EntitySetMapping Name="DefaultInterventions">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.DefaultIntervention">
               <MappingFragment StoreEntitySet="tblDefaultInterventions">
                 <ScalarProperty Name="interventionTypeId" ColumnName="interventionTypeId" />
                 <ScalarProperty Name="interventionName" ColumnName="interventionName" />
@@ -610,8 +610,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblInterventions">
-            <EntityTypeMapping TypeName="DefaultConnectionModel.tblIntervention">
+          <EntitySetMapping Name="Interventions">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.Intervention">
               <MappingFragment StoreEntitySet="tblIntervention">
                 <ScalarProperty Name="interventionId" ColumnName="interventionId" />
                 <ScalarProperty Name="clientID" ColumnName="clientID" />
@@ -626,8 +626,8 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="DefaultConnectionModel.tblUser">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DefaultConnectionModel.User">
               <MappingFragment StoreEntitySet="tblUsers">
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="userName" ColumnName="userName" />

@@ -12,7 +12,7 @@ namespace NexGenMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblAuditIntervention
+    public partial class AuditIntervention
     {
         public string auditId { get; set; }
         public string interventionId { get; set; }
@@ -21,7 +21,7 @@ namespace NexGenMVC.Models
         public string interventionComment { get; set; }
         public string userId { get; set; }
     
-        public virtual tblIntervention tblIntervention { get; set; }
-        public virtual tblUser tblUser { get; set; }
+        public virtual Intervention Intervention { get; set; }
+        public virtual User User { get; set; }
     }
 }

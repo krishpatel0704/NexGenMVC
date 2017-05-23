@@ -193,10 +193,22 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuditIntervention.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Client.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DefaultIntervention.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Intervention.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NexGenEntityModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -213,19 +225,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\tblAuditIntervention.cs">
-      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblClient.cs">
-      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblDefaultIntervention.cs">
-      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblIntervention.cs">
-      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblUser.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,7 +273,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
