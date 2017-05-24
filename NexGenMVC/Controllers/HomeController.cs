@@ -11,7 +11,7 @@ namespace NexGenMVC.Controllers
     public class HomeController : Controller
     {
         DefaultConnectionEntities db = new DefaultConnectionEntities();
-        [Authorize(Roles="Site Engineer")]
+      [Authorize(Roles="Site Engineer")]
         public ActionResult Index()
         {
             return View();
@@ -36,6 +36,7 @@ namespace NexGenMVC.Controllers
                 FormsAuthentication.SetAuthCookie(dataItem.UserName, false);
                 if(Url.IsLocalUrl(returnUrl) && returnUrl.Length>1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                 {
+                    Session["UserId"] = users.UserName;
                     return Redirect(returnUrl);
                 }
                 else

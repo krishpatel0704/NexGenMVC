@@ -12,6 +12,8 @@ namespace NexGenMVC.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DefaultConnectionEntities : DbContext
     {
@@ -35,5 +37,44 @@ namespace NexGenMVC.Models
         public virtual DbSet<DefaultIntervention> DefaultInterventions { get; set; }
         public virtual DbSet<Intervention> Interventions { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<GetClient_Result> GetClient(string userid, Nullable<int> opt)
+        {
+            var useridParameter = userid != null ?
+                new ObjectParameter("Userid", userid) :
+                new ObjectParameter("Userid", typeof(string));
+    
+            var optParameter = opt.HasValue ?
+                new ObjectParameter("opt", opt) :
+                new ObjectParameter("opt", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClient_Result>("GetClient", useridParameter, optParameter);
+        }
+    
+        public virtual ObjectResult<Fn_GetClint_Result> Fn_GetClient(string userid, Nullable<int> opt)
+        {
+            var useridParameter = userid != null ?
+                new ObjectParameter("Userid", userid) :
+                new ObjectParameter("Userid", typeof(string));
+    
+            var optParameter = opt.HasValue ?
+                new ObjectParameter("opt", opt) :
+                new ObjectParameter("opt", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_GetClint_Result>("Fn_GetClient", useridParameter, optParameter);
+        }
+    
+        public virtual ObjectResult<string> Fn_GetClientId(string userid, Nullable<int> opt)
+        {
+            var useridParameter = userid != null ?
+                new ObjectParameter("Userid", userid) :
+                new ObjectParameter("Userid", typeof(string));
+    
+            var optParameter = opt.HasValue ?
+                new ObjectParameter("opt", opt) :
+                new ObjectParameter("opt", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Fn_GetClientId", useridParameter, optParameter);
+        }
     }
 }

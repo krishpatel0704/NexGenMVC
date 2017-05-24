@@ -205,6 +205,12 @@
     <Compile Include="Models\DefaultIntervention.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Fn_GetClint_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetClient_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Intervention.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
@@ -313,6 +319,8 @@
     <Content Include="Views\Shared\_AccountantLayoutPage.cshtml" />
     <Content Include="Views\Shared\_ManagerLayoutPage.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\SiteEngineer\Client.cshtml" />
+    <Content Include="Views\SiteEngineer\NewClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

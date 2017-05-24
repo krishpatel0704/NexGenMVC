@@ -12,7 +12,7 @@ namespace NexGenMVC.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
+     /*   [TestMethod]
         public void Index()
         {
             // Arrange
@@ -23,7 +23,7 @@ namespace NexGenMVC.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-        }
+        }*/
         [TestMethod]
         public void Login()
         {

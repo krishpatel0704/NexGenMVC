@@ -227,6 +227,10 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Userid" Type="varchar" Mode="In" />
+          <Parameter Name="opt" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DefaultConnectionModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -516,7 +520,31 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <FunctionImport Name="GetClient" ReturnType="Collection(DefaultConnectionModel.GetClient_Result)">
+            <Parameter Name="Userid" Mode="In" Type="String" />
+            <Parameter Name="opt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetClient" ReturnType="Collection(DefaultConnectionModel.Fn_GetClint_Result)">
+            <Parameter Name="Userid" Mode="In" Type="String" />
+            <Parameter Name="opt" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetClientId" ReturnType="Collection(String)">
+            <Parameter Name="Userid" Mode="In" Type="String" />
+            <Parameter Name="opt" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetClient_Result">
+          <Property Type="String" Name="clientId" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="clientName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="clientDistrict" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="clientDesLocation" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetClint_Result">
+          <Property Type="String" Name="clientId" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="clientName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="clientDistrict" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="clientDesLocation" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -645,7 +673,28 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="GetClient" FunctionName="DefaultConnectionModel.Store.GetClient">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetClient_Result">
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="clientDistrict" ColumnName="clientDistrict" />
+                <ScalarProperty Name="clientDesLocation" ColumnName="clientDesLocation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetClient" FunctionName="DefaultConnectionModel.Store.GetClient">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetClint_Result">
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="clientDistrict" ColumnName="clientDistrict" />
+                <ScalarProperty Name="clientDesLocation" ColumnName="clientDesLocation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetClientId" FunctionName="DefaultConnectionModel.Store.GetClient" />
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
