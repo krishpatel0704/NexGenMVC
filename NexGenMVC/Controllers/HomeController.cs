@@ -11,17 +11,17 @@ namespace NexGenMVC.Controllers
     public class HomeController : Controller
     {
         DefaultConnectionEntities db = new DefaultConnectionEntities();
-      [Authorize(Roles="Site Engineer")]
+   
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles="Manager")]
-        public ActionResult Manager()
-        {
-            return View();
-        }
+        //[Authorize(Roles = "Manager")]
+        //public ActionResult Manager()
+        //{
+        //    return View();
+        //}
         public ActionResult Login()
         {
             return View();
