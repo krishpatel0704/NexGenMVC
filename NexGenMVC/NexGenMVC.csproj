@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AspNetUsers.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\SiteEngineerController.cs" />
+    <Compile Include="DAL\DALClass.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -208,10 +209,25 @@
     <Compile Include="Models\Fn_GetClint_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Fn_GetDefaultIntervention_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fn_GetDefaultIntervention_Result1.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetClient_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetDefaultIntervention_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetInterventions_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InsertIntervenion_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Intervention.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
@@ -315,6 +331,8 @@
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\SiteEngineer\Client.cshtml" />
     <Content Include="Views\SiteEngineer\NewClient.cshtml" />
+    <Content Include="Views\SiteEngineer\Intervention.cshtml" />
+    <Content Include="Views\SiteEngineer\NewIntervention.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

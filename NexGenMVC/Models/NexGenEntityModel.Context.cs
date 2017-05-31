@@ -38,7 +38,7 @@ namespace NexGenMVC.Models
         public virtual DbSet<Intervention> Interventions { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual ObjectResult<GetClient_Result> GetClient(string userid, Nullable<int> opt)
+        public virtual ObjectResult<GetClient_Result> GetClient(string userid, Nullable<int> opt, string clientId, string clientName, string clientDesLoc)
         {
             var useridParameter = userid != null ?
                 new ObjectParameter("Userid", userid) :
@@ -48,10 +48,22 @@ namespace NexGenMVC.Models
                 new ObjectParameter("opt", opt) :
                 new ObjectParameter("opt", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClient_Result>("GetClient", useridParameter, optParameter);
+            var clientIdParameter = clientId != null ?
+                new ObjectParameter("clientId", clientId) :
+                new ObjectParameter("clientId", typeof(string));
+    
+            var clientNameParameter = clientName != null ?
+                new ObjectParameter("clientName", clientName) :
+                new ObjectParameter("clientName", typeof(string));
+    
+            var clientDesLocParameter = clientDesLoc != null ?
+                new ObjectParameter("clientDesLoc", clientDesLoc) :
+                new ObjectParameter("clientDesLoc", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetClient_Result>("GetClient", useridParameter, optParameter, clientIdParameter, clientNameParameter, clientDesLocParameter);
         }
     
-        public virtual ObjectResult<Fn_GetClint_Result> Fn_GetClient(string userid, Nullable<int> opt)
+        public virtual ObjectResult<Fn_GetClint_Result> Fn_GetClient(string userid, Nullable<int> opt, string clientId, string clientName, string clientDesLoc)
         {
             var useridParameter = userid != null ?
                 new ObjectParameter("Userid", userid) :
@@ -61,10 +73,22 @@ namespace NexGenMVC.Models
                 new ObjectParameter("opt", opt) :
                 new ObjectParameter("opt", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_GetClint_Result>("Fn_GetClient", useridParameter, optParameter);
+            var clientIdParameter = clientId != null ?
+                new ObjectParameter("clientId", clientId) :
+                new ObjectParameter("clientId", typeof(string));
+    
+            var clientNameParameter = clientName != null ?
+                new ObjectParameter("clientName", clientName) :
+                new ObjectParameter("clientName", typeof(string));
+    
+            var clientDesLocParameter = clientDesLoc != null ?
+                new ObjectParameter("clientDesLoc", clientDesLoc) :
+                new ObjectParameter("clientDesLoc", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_GetClint_Result>("Fn_GetClient", useridParameter, optParameter, clientIdParameter, clientNameParameter, clientDesLocParameter);
         }
     
-        public virtual ObjectResult<string> Fn_GetClientId(string userid, Nullable<int> opt)
+        public virtual ObjectResult<string> Fn_GetClientId(string userid, Nullable<int> opt, string clientId, string clientName, string clientDesLoc)
         {
             var useridParameter = userid != null ?
                 new ObjectParameter("Userid", userid) :
@@ -74,7 +98,138 @@ namespace NexGenMVC.Models
                 new ObjectParameter("opt", opt) :
                 new ObjectParameter("opt", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Fn_GetClientId", useridParameter, optParameter);
+            var clientIdParameter = clientId != null ?
+                new ObjectParameter("clientId", clientId) :
+                new ObjectParameter("clientId", typeof(string));
+    
+            var clientNameParameter = clientName != null ?
+                new ObjectParameter("clientName", clientName) :
+                new ObjectParameter("clientName", typeof(string));
+    
+            var clientDesLocParameter = clientDesLoc != null ?
+                new ObjectParameter("clientDesLoc", clientDesLoc) :
+                new ObjectParameter("clientDesLoc", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Fn_GetClientId", useridParameter, optParameter, clientIdParameter, clientNameParameter, clientDesLocParameter);
+        }
+    
+        public virtual int Fn_InsertClient(string userid, Nullable<int> opt, string clientId, string clientName, string clientDesLoc)
+        {
+            var useridParameter = userid != null ?
+                new ObjectParameter("Userid", userid) :
+                new ObjectParameter("Userid", typeof(string));
+    
+            var optParameter = opt.HasValue ?
+                new ObjectParameter("opt", opt) :
+                new ObjectParameter("opt", typeof(int));
+    
+            var clientIdParameter = clientId != null ?
+                new ObjectParameter("clientId", clientId) :
+                new ObjectParameter("clientId", typeof(string));
+    
+            var clientNameParameter = clientName != null ?
+                new ObjectParameter("clientName", clientName) :
+                new ObjectParameter("clientName", typeof(string));
+    
+            var clientDesLocParameter = clientDesLoc != null ?
+                new ObjectParameter("clientDesLoc", clientDesLoc) :
+                new ObjectParameter("clientDesLoc", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Fn_InsertClient", useridParameter, optParameter, clientIdParameter, clientNameParameter, clientDesLocParameter);
+        }
+    
+        public virtual ObjectResult<GetInterventions_Result> GetInterventions(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInterventions_Result>("GetInterventions", userIdParameter);
+        }
+    
+        public virtual ObjectResult<InsertIntervenion_Result> InsertIntervenion(string interventionId, string clientId, string userId, Nullable<double> interventionHours, Nullable<double> interventionCosts, string status, string interventionTypeName)
+        {
+            var interventionIdParameter = interventionId != null ?
+                new ObjectParameter("InterventionId", interventionId) :
+                new ObjectParameter("InterventionId", typeof(string));
+    
+            var clientIdParameter = clientId != null ?
+                new ObjectParameter("ClientId", clientId) :
+                new ObjectParameter("ClientId", typeof(string));
+    
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            var interventionHoursParameter = interventionHours.HasValue ?
+                new ObjectParameter("InterventionHours", interventionHours) :
+                new ObjectParameter("InterventionHours", typeof(double));
+    
+            var interventionCostsParameter = interventionCosts.HasValue ?
+                new ObjectParameter("InterventionCosts", interventionCosts) :
+                new ObjectParameter("InterventionCosts", typeof(double));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var interventionTypeNameParameter = interventionTypeName != null ?
+                new ObjectParameter("InterventionTypeName", interventionTypeName) :
+                new ObjectParameter("InterventionTypeName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InsertIntervenion_Result>("InsertIntervenion", interventionIdParameter, clientIdParameter, userIdParameter, interventionHoursParameter, interventionCostsParameter, statusParameter, interventionTypeNameParameter);
+        }
+    
+        public virtual ObjectResult<GetInterventions_Result> Fn_GetIntervention(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInterventions_Result>("Fn_GetIntervention", userIdParameter);
+        }
+    
+        public virtual int Fn_InsertIntervention(string interventionId, string clientId, string userId, Nullable<double> interventionHours, Nullable<double> interventionCosts, string status, string interventionTypeName)
+        {
+            var interventionIdParameter = interventionId != null ?
+                new ObjectParameter("InterventionId", interventionId) :
+                new ObjectParameter("InterventionId", typeof(string));
+    
+            var clientIdParameter = clientId != null ?
+                new ObjectParameter("ClientId", clientId) :
+                new ObjectParameter("ClientId", typeof(string));
+    
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            var interventionHoursParameter = interventionHours.HasValue ?
+                new ObjectParameter("InterventionHours", interventionHours) :
+                new ObjectParameter("InterventionHours", typeof(double));
+    
+            var interventionCostsParameter = interventionCosts.HasValue ?
+                new ObjectParameter("InterventionCosts", interventionCosts) :
+                new ObjectParameter("InterventionCosts", typeof(double));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var interventionTypeNameParameter = interventionTypeName != null ?
+                new ObjectParameter("InterventionTypeName", interventionTypeName) :
+                new ObjectParameter("InterventionTypeName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Fn_InsertIntervention", interventionIdParameter, clientIdParameter, userIdParameter, interventionHoursParameter, interventionCostsParameter, statusParameter, interventionTypeNameParameter);
+        }
+    
+        public virtual ObjectResult<GetDefaultIntervention_Result> GetDefaultIntervention()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDefaultIntervention_Result>("GetDefaultIntervention");
+        }
+    
+        public virtual ObjectResult<Fn_GetDefaultIntervention_Result1> Fn_GetDefaultIntervention()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_GetDefaultIntervention_Result1>("Fn_GetDefaultIntervention");
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NexGenMVC.Models.GetInterventions_Result>
+@*@model IEnumerable<NexGenMVC.Models.Fn_GetClint_Result>*@
+@{
+    ViewBag.Title = "Intervention";
+    Layout = "~/Views/Shared/_SiteEngineerLayoutPage.cshtml";
+}
+
+<h2>Intervention</h2>
+
+<p>
+  @*  @Html.ActionLink("Create New", "Create")*@
+    <a href="@Url.Action("NewIntervention", "SiteEngineer", "NewIntervention")" class="elements"><span>New Intervention</span></a>
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.interventionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.interventionTypeName)
+        </th>
+       
+       
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionTypeName)
+        </td>
+       
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.interventionId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.interventionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.interventionId })
+        </td>
+    </tr>
+}
+
+</table>
