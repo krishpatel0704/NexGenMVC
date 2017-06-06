@@ -1,0 +1,127 @@
+﻿@model IEnumerable<NexGenMVC.Models.Fn_GetProposedInterventions_Result>
+@*@model IEnumerable<NexGenMVC.Models.Fn_GetClint_Result>*@
+@{
+    ViewBag.Title = "Intervention";
+    Layout = "~/Views/Shared/_ManagerLayoutPage.cshtml";
+}
+
+<h2>Intervention</h2>
+
+<p>
+    @*  @Html.ActionLink("Create New", "Create")*@
+   @* <a href="@Url.Action("NewIntervention", "SiteEngineer", "NewIntervention")" class="elements"><span>New Intervention</span></a>*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.clientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+
+
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.interventionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.clientID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.interventionTypeName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.interventionHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.interventionCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+
+            
+                <td>
+                    @Html.ActionLink("EditIntervention", "EditIntervention", new { id = item.interventionId })
+                </td>
+          
+        </tr>
+    }
+
+</table>
+<h2>All other Interventions</h2>
+<table class="table">
+    <tr>
+        <th>
+           Intervention Id
+        </th>
+        <th>
+            Client Id
+        </th>
+        <th>
+           Intervention Name
+        </th>
+        <th>
+           Intervention Hours
+        </th>
+        <th>
+           Intervention Cost
+        <th>
+           Intervention Status
+        </th>
+
+
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.OtherInterventions)
+    {
+        <tr>
+            <td>
+                @item.interventionId
+            </td>
+            <td>
+                @item.clientID
+            </td>
+            <td>
+                @item.interventionTypeName
+            </td>
+
+            <td>
+                @item.interventionHours
+            </td>
+            <td>
+                @item.interventionCost
+            </td>
+            <td>
+                @item.status
+            </td>
+  </tr>
+    }
+
+</table>

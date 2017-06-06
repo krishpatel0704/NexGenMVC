@@ -102,13 +102,14 @@
           <Property Name="interventionId" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="clientID" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="userID" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="managerId" Type="nvarchar" MaxLength="10" />
+          <Property Name="managerId" Type="nvarchar" MaxLength="256" />
           <Property Name="interventionHours" Type="float" Nullable="false" />
           <Property Name="interventionCost" Type="float" Nullable="false" />
           <Property Name="status" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="interventionDate" Type="date" Nullable="false" />
           <Property Name="interventionTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="district" Type="nvarchar" MaxLength="30" />
+          <Property Name="notification" Type="int" />
         </EntityType>
         <EntityType Name="tblUsers">
           <Key>
@@ -132,7 +133,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblAuditI__userI__412EB0B6">
+        <Association Name="FK__tblAuditI__userI__43A1090D">
           <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
           <End Role="tblAuditIntervention" Type="Self.tblAuditIntervention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -156,7 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblInterv__userI__3B75D760">
+        <Association Name="FK__tblInterv__userI__42ACE4D4">
           <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
           <End Role="tblIntervention" Type="Self.tblIntervention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,8 +170,8 @@
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__tblUsers__userId__5AEE82B9" />-->
+warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__tblUsers__userId__44952D46" />-->
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -227,6 +228,16 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="EditInterventionSE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InterventionStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="InterventionId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Opt" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAuditId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAuditIntervention" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Userid" Type="varchar" Mode="In" />
           <Parameter Name="opt" Type="int" Mode="In" />
@@ -234,9 +245,30 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Parameter Name="clientName" Type="char" Mode="In" />
           <Parameter Name="clientDesLoc" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="GetDefaultCostHour" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetDefaultIntervention" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetIngterventionId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetInterventionForEdit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InterventionId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetInterventionForManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetInterventionId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetInterventionProposedForManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GetInterventions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertAudit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AuditId" Type="varchar" Mode="In" />
+          <Parameter Name="InterventionId" Type="varchar" Mode="In" />
+          <Parameter Name="InterventionLife" Type="int" Mode="In" />
+          <Parameter Name="InterventionComment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="InsertIntervenion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="InterventionId" Type="varchar" Mode="In" />
@@ -246,6 +278,13 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Parameter Name="InterventionCosts" Type="float" Mode="In" />
           <Parameter Name="Status" Type="char" Mode="In" />
           <Parameter Name="InterventionTypeName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Procedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="uid" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Reports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Opt" Type="int" Mode="In" />
+          <Parameter Name="District" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="DefaultConnectionModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
@@ -263,7 +302,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             <End Role="tblIntervention" EntitySet="tblIntervention" />
             <End Role="tblAuditIntervention" EntitySet="tblAuditIntervention" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblAuditI__userI__412EB0B6" Association="Self.FK__tblAuditI__userI__412EB0B6">
+          <AssociationSet Name="FK__tblAuditI__userI__43A1090D" Association="Self.FK__tblAuditI__userI__43A1090D">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblAuditIntervention" EntitySet="tblAuditIntervention" />
           </AssociationSet>
@@ -271,7 +310,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             <End Role="tblClient" EntitySet="tblClient" />
             <End Role="tblIntervention" EntitySet="tblIntervention" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblInterv__userI__3B75D760" Association="Self.FK__tblInterv__userI__3B75D760">
+          <AssociationSet Name="FK__tblInterv__userI__42ACE4D4" Association="Self.FK__tblInterv__userI__42ACE4D4">
             <End Role="tblUsers" EntitySet="tblUsers" />
             <End Role="tblIntervention" EntitySet="tblIntervention" />
           </AssociationSet>
@@ -394,7 +433,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Name="interventionId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="clientID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="userID" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="managerId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="managerId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="interventionHours" Type="Double" Nullable="false" />
           <Property Name="interventionCost" Type="Double" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
@@ -404,6 +443,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <NavigationProperty Name="AuditIntervention" Relationship="Self.FK__tblAuditI__inter__403A8C7D" FromRole="tblIntervention" ToRole="tblAuditIntervention" />
           <NavigationProperty Name="Client" Relationship="Self.FK__tblInterv__clien__3A81B327" FromRole="tblIntervention" ToRole="tblClient" />
           <NavigationProperty Name="User" Relationship="Self.FK__tblInterv__userI__3B75D760" FromRole="tblIntervention" ToRole="tblUsers" />
+          <Property Name="notification" Type="Int32" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -576,7 +616,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             <Parameter Name="Status" Mode="In" Type="String" />
             <Parameter Name="InterventionTypeName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Fn_GetIntervention" ReturnType="Collection(DefaultConnectionModel.GetInterventions_Result)">
+          <FunctionImport Name="Fn_GetIntervention" ReturnType="Collection(DefaultConnectionModel.Fn_GetIntervention_Result1)">
           <Parameter Name="UserId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Fn_InsertIntervention">
@@ -590,6 +630,78 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           </FunctionImport>
           <FunctionImport Name="GetDefaultIntervention" ReturnType="Collection(DefaultConnectionModel.GetDefaultIntervention_Result)" />
           <FunctionImport Name="Fn_GetDefaultIntervention" ReturnType="Collection(DefaultConnectionModel.Fn_GetDefaultIntervention_Result1)" />
+          <FunctionImport Name="GetDefaultCostHour" ReturnType="Collection(DefaultConnectionModel.GetDefaultCostHour_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetDefaultCostHour" ReturnType="Collection(DefaultConnectionModel.Fn_GetDefaultCostHour_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetIngterventionId" ReturnType="Collection(String)" />
+          <FunctionImport Name="GetInterventionId" ReturnType="Collection(String)" />
+          <FunctionImport Name="Fn_GetInterventionId" ReturnType="Collection(String)" />
+          <FunctionImport Name="GetAuditId" ReturnType="Collection(String)" />
+          <FunctionImport Name="GetAuditIntervention" ReturnType="Collection(DefaultConnectionModel.GetAuditIntervention_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertAudit">
+            <Parameter Name="AuditId" Mode="In" Type="String" />
+            <Parameter Name="InterventionId" Mode="In" Type="String" />
+            <Parameter Name="InterventionLife" Mode="In" Type="Int32" />
+            <Parameter Name="InterventionComment" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetAuditId" ReturnType="Collection(String)" />
+          <FunctionImport Name="Fn_GetAuditIntervention" ReturnType="Collection(DefaultConnectionModel.Fn_GetAuditIntervention_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_InsertAuditIntervention">
+            <Parameter Name="AuditId" Mode="In" Type="String" />
+            <Parameter Name="InterventionId" Mode="In" Type="String" />
+            <Parameter Name="InterventionLife" Mode="In" Type="Int32" />
+            <Parameter Name="InterventionComment" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetInterventionForEdit" ReturnType="Collection(DefaultConnectionModel.GetInterventionForEdit_Result)">
+          <Parameter Name="InterventionId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetInterventionForEdit" ReturnType="Collection(DefaultConnectionModel.Fn_GetInterventionForEdit_Result3)">
+          <Parameter Name="InterventionId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditInterventionSE">
+            <Parameter Name="InterventionStatus" Mode="In" Type="String" />
+            <Parameter Name="InterventionId" Mode="In" Type="String" />
+            <Parameter Name="Opt" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Procedure" ReturnType="Collection(String)">
+          <Parameter Name="uid" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_EditInterventionSE">
+            <Parameter Name="InterventionStatus" Mode="In" Type="String" />
+            <Parameter Name="InterventionId" Mode="In" Type="String" />
+            <Parameter Name="Opt" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetInterventionForManager" ReturnType="Collection(DefaultConnectionModel.GetInterventionForManager_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetInterventionProposedForManager" ReturnType="Collection(DefaultConnectionModel.GetInterventionProposedForManager_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetProposedInterventions" ReturnType="Collection(DefaultConnectionModel.Fn_GetProposedInterventions_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetInterventionForManager" ReturnType="Collection(DefaultConnectionModel.Fn_GetInterventionForManager_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Reports" ReturnType="Collection(DefaultConnectionModel.Reports_Result)">
+            <Parameter Name="Opt" Mode="In" Type="Int32" />
+            <Parameter Name="District" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_Report" ReturnType="Collection(DefaultConnectionModel.Fn_Report_Result)">
+            <Parameter Name="Opt" Mode="In" Type="Int32" />
+            <Parameter Name="District" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetClient_Result">
           <Property Type="String" Name="clientId" Nullable="false" MaxLength="100" />
@@ -637,6 +749,126 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <Property Type="String" Name="interventionName" Nullable="false" MaxLength="50" />
           <Property Type="Double" Name="interventionDefaultCost" Nullable="false" />
           <Property Type="Double" Name="interventionDefaultHours" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetDefaultCostHour_Result">
+          <Property Type="Int32" Name="userHourAllowed" Nullable="true" />
+          <Property Type="Double" Name="userCostAllowed" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetDefaultCostHour_Result">
+          <Property Type="Int32" Name="userHourAllowed" Nullable="true" />
+          <Property Type="Double" Name="userCostAllowed" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAuditIntervention_Result">
+          <Property Type="String" Name="auditId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="interventionLife" Nullable="false" />
+          <Property Type="String" Name="interventionComment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetAuditIntervention_Result">
+          <Property Type="String" Name="auditId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="interventionLife" Nullable="false" />
+          <Property Type="String" Name="interventionComment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetInterventionForEdit_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="DateTime" Name="interventionDate" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetInterventionForEdit_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="DateTime" Name="interventionDate" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetInterventionForEdit_Result1">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="DateTime" Name="interventionDate" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetInterventionForEdit_Result2">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetInterventionForEdit_Result3">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="GetInterventionForManager_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="GetInterventionProposedForManager_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetProposedInterventions_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetInterventionForManager_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetIntervention_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="notification" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetIntervention_Result1">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="notification" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Reports_Result">
+          <Property Type="String" Name="USERID" Nullable="false" MaxLength="256" />
+          <Property Type="Double" Name="Hours" Nullable="true" />
+          <Property Type="Double" Name="COST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_Report_Result">
+          <Property Type="String" Name="USERID" Nullable="false" MaxLength="256" />
+          <Property Type="Double" Name="Hours" Nullable="true" />
+          <Property Type="Double" Name="COST" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -734,6 +966,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
           <EntitySetMapping Name="Interventions">
             <EntityTypeMapping TypeName="DefaultConnectionModel.Intervention">
               <MappingFragment StoreEntitySet="tblIntervention">
+                <ScalarProperty Name="notification" ColumnName="notification" />
                 <ScalarProperty Name="interventionId" ColumnName="interventionId" />
                 <ScalarProperty Name="clientID" ColumnName="clientID" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
@@ -817,14 +1050,15 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Fn_GetIntervention" FunctionName="DefaultConnectionModel.Store.GetInterventions">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetInterventions_Result">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetIntervention_Result1">
                 <ScalarProperty Name="interventionId" ColumnName="interventionId" />
                 <ScalarProperty Name="clientID" ColumnName="clientID" />
                 <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
                 <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
                 <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notification" ColumnName="notification" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -844,6 +1078,142 @@ warning 6035: The relationship 'FK__tblUsers__userId__5AEE82B9' has columns that
                 <ScalarProperty Name="interventionName" ColumnName="interventionName" />
                 <ScalarProperty Name="interventionDefaultCost" ColumnName="interventionDefaultCost" />
                 <ScalarProperty Name="interventionDefaultHours" ColumnName="interventionDefaultHours" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDefaultCostHour" FunctionName="DefaultConnectionModel.Store.GetDefaultCostHour">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetDefaultCostHour_Result">
+                <ScalarProperty Name="userHourAllowed" ColumnName="userHourAllowed" />
+                <ScalarProperty Name="userCostAllowed" ColumnName="userCostAllowed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetDefaultCostHour" FunctionName="DefaultConnectionModel.Store.GetDefaultCostHour">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetDefaultCostHour_Result">
+                <ScalarProperty Name="userHourAllowed" ColumnName="userHourAllowed" />
+                <ScalarProperty Name="userCostAllowed" ColumnName="userCostAllowed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetIngterventionId" FunctionName="DefaultConnectionModel.Store.GetIngterventionId" />
+          <FunctionImportMapping FunctionImportName="GetInterventionId" FunctionName="DefaultConnectionModel.Store.GetInterventionId" />
+          <FunctionImportMapping FunctionImportName="Fn_GetInterventionId" FunctionName="DefaultConnectionModel.Store.GetIngterventionId" />
+          <FunctionImportMapping FunctionImportName="GetAuditId" FunctionName="DefaultConnectionModel.Store.GetAuditId" />
+          <FunctionImportMapping FunctionImportName="GetAuditIntervention" FunctionName="DefaultConnectionModel.Store.GetAuditIntervention">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetAuditIntervention_Result">
+                <ScalarProperty Name="auditId" ColumnName="auditId" />
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="interventionLife" ColumnName="interventionLife" />
+                <ScalarProperty Name="interventionComment" ColumnName="interventionComment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertAudit" FunctionName="DefaultConnectionModel.Store.InsertAudit" />
+          <FunctionImportMapping FunctionImportName="Fn_GetAuditId" FunctionName="DefaultConnectionModel.Store.GetAuditId" />
+          <FunctionImportMapping FunctionImportName="Fn_GetAuditIntervention" FunctionName="DefaultConnectionModel.Store.GetAuditIntervention">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetAuditIntervention_Result">
+                <ScalarProperty Name="auditId" ColumnName="auditId" />
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="interventionLife" ColumnName="interventionLife" />
+                <ScalarProperty Name="interventionComment" ColumnName="interventionComment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_InsertAuditIntervention" FunctionName="DefaultConnectionModel.Store.InsertAudit" />
+          <FunctionImportMapping FunctionImportName="GetInterventionForEdit" FunctionName="DefaultConnectionModel.Store.GetInterventionForEdit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetInterventionForEdit_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="interventionDate" ColumnName="interventionDate" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetInterventionForEdit" FunctionName="DefaultConnectionModel.Store.GetInterventionForEdit">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetInterventionForEdit_Result3">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EditInterventionSE" FunctionName="DefaultConnectionModel.Store.EditInterventionSE" />
+          <FunctionImportMapping FunctionImportName="Procedure" FunctionName="DefaultConnectionModel.Store.Procedure" />
+          <FunctionImportMapping FunctionImportName="Fn_EditInterventionSE" FunctionName="DefaultConnectionModel.Store.EditInterventionSE" />
+          <FunctionImportMapping FunctionImportName="GetInterventionForManager" FunctionName="DefaultConnectionModel.Store.GetInterventionForManager">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetInterventionForManager_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetInterventionProposedForManager" FunctionName="DefaultConnectionModel.Store.GetInterventionProposedForManager">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetInterventionProposedForManager_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetProposedInterventions" FunctionName="DefaultConnectionModel.Store.GetInterventionProposedForManager">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetProposedInterventions_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetInterventionForManager" FunctionName="DefaultConnectionModel.Store.GetInterventionForManager">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetInterventionForManager_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Reports" FunctionName="DefaultConnectionModel.Store.Reports">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Reports_Result">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_Report" FunctionName="DefaultConnectionModel.Store.Reports">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_Report_Result">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

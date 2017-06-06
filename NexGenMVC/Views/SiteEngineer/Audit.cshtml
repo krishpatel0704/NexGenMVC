@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NexGenMVC.Models.Fn_GetAuditIntervention_Result>
+@{
+    ViewBag.Title = "Audit";
+    Layout = "~/Views/Shared/_SiteEngineerLayoutPage.cshtml";
+}
+
+<h2>Audit</h2>
+
+<p>
+    <a href="@Url.Action("NewAudit", "SiteEngineer", "NewAudit")" class="elements"><span>New Audit</span></a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model=>model.auditId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionLife)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionComment)
+        </th>
+        
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.auditId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionLife)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionComment)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>

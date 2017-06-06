@@ -13,11 +13,11 @@
         <tr>
             <td style="text-align: right">Client Id</td>
            @* <td style="text-align: left"><input style="width:100%;display:none;" class="form-control" type="text" id="txtClientId" n0ame="txtClientId" value="@Model.ToString()" /></td>*@
-            <td style="text-align: left"><input type="text" id="txtClientId" name="txtClientId"/></td>
+            <td style="text-align: left"><input type="text" id="txtClientId" name="txtClientId" value="@Model" readonly/></td>
         </tr>
         <tr>
             <td style="text-align: right">Client Name</td>
-            <td style="text-align: left"><input  type="text"  id="txtClientName" name="txtClientName"/></td>
+            <td style="text-align: left"><input  type="text"  id="txtClientName" name="txtClientName" /></td>
         </tr>
         <tr>
             <td style="text-align: right">Client Descriptive Location</td>
@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" name="btnSubmit" value="NewClient" /></td>
+            <td><input type="submit" name="btnSubmit" onclick=" return validateName()" value="NewClient" /></td>
         </tr>
         
     </table>
@@ -86,3 +86,23 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script >
+    function validateName() {
+        var name = document.getElementById("txtClientName").value;
+        if (name == null || name == "") {
+            alert("Name can't be blank");
+            document.getElementById("txtClientName").focus();
+            document.getElementById("txtClientName").value = "";
+            return false;
+        } else if (/^[A-Za-z\s]+$/.test(name)) {
+            return true;
+        }
+        else
+        {
+            alert("Only Charcter any space allowed");
+            document.getElementById("txtClientName").focus();
+            document.getElementById("txtClientName").value = "";
+            return false;
+        }
+    }
+</script>

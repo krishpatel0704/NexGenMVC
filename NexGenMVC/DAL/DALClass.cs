@@ -13,8 +13,8 @@ namespace NexGenMVC.DAL
        
 
         public SqlConnection cn = new SqlConnection(conString);
-        SqlCommand cmd = null;
-        SqlDataAdapter ad = null;
+      //  SqlCommand cmd = null;
+       // SqlDataAdapter ad = null;
         public bool InsertData(SqlCommand cmd)
         {
             try

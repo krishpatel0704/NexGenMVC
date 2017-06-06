@@ -1,4 +1,6 @@
-﻿@model IEnumerable<NexGenMVC.Models.Fn_GetDefaultIntervention_Result1>
+﻿@using NexGenMVC.Models;
+@model IEnumerable<NexGenMVC.Models.Fn_GetDefaultIntervention_Result1>
+@*@model NexGenMVC.Models.Intervention*@
 
 @{
     ViewBag.Title = "NewIntervention";
@@ -13,31 +15,41 @@
                 <tr>
                     <td style="text-align: right">Intervention Id</td>
                 
-                    <td style="text-align: left"><input type="text" id="txtInterventionId" name="txtInterventionId" /></td>
+                    <td style="text-align: left"><input type="text" id="txtInterventionId" name="txtInterventionId" value="@ViewBag.InterventionId" readonly /></td>
                 </tr>
                 <tr>
                     <td style="text-align: right">Client Id</td>
-                    <td style="text-align: left"><input type="text" id="txtClientId" name="txtClientId"/></td>
+                    <td>
+                        <select id="ddlClientId" name="ddlClientId">
+                            @foreach (var item in ViewBag.Clients)
+                            {
+
+
+                                <option>@item.clientId.Trim()</option>
+                            }
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td style="text-align: right">Intervention Type</td>
                     <td style="text-align: left">
-                        <select id="ddlInterType" name="ddlInterType">
-                            @foreach (var item in ViewData.Model)
+                        <select id="ddlInterType" name="ddlInterType"  onchange="CostAndHoursValueChanged(this.value)" >
+                        <option selected></option>   
+                        @foreach (var item in ViewData.Model)
                             {
-                   
+                 
                         
-                        <option>@item.interventionName</option>
+                        <option >@item.interventionName.Trim()</option>
                             }
                             </select></td>
                             </tr>
                             <tr>
                                 <td style="text-align: right">Intervention Hours</td>
-                                <td style="text-align: left"><input type="text" id="txtInterventionHours" name="txtInterventionHours" /></td>
+                                <td style="text-align: left"><input type="text" id="txtInterventionHours"  name="txtInterventionHours" onchange="ExceedSELimitHours(this.value)"  /></td>
                             </tr>
                             <tr>
                                 <td style="text-align: right">Intervention Costs</td>
-                                <td style="text-align: left"><input type="text" id="txtInterventionCosts" name="txtInterventionCosts" /></td>
+                                <td style="text-align: left"><input type="text" id="txtInterventionCosts"  name="txtInterventionCosts" onchange="ExceedSELimitCosts(this.value)"  /></td>
                             </tr>
                 <tr>
                     <td style="text-align: right">Intervention Status</td>
@@ -52,108 +64,12 @@
                 </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" name="btnSubmit" value="NewIntervention" /></td>
+                                <td><input type="submit" id="NewIntervention" name="NewIntervention" onclick="return validationBeforSubmit()" value="NewIntervention" /></td>
                             </tr>
 
                         </table>
         </form>
     }
-
-@*@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Intervention</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.interventionId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.interventionId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.interventionId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.clientID, "clientID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("clientID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.clientID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.userID, "userID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("userID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.userID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.managerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.managerId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.managerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.interventionHours, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.interventionHours, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.interventionHours, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.interventionCost, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.interventionCost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.interventionCost, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.interventionDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.interventionDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.interventionDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.interventionTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.interventionTypeName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.interventionTypeName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.district, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.district, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.district, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}*@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -162,3 +78,92 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+   
+<script>
+   
+    function testforNumber(number)
+    {
+        
+       // var reg = "/^[0-9]+(.[0-9]+)?$/";
+        if (!/^[0-9]+(.[0-9]+)?$/.test(number)) {
+            alert("Numbers only");
+        }
+    }
+    function validationBeforSubmit()
+    {
+        var hour = document.getElementById("txtInterventionHours").value;
+        var cost = document.getElementById("txtInterventionCosts").value;
+        var intervention = document.getElementById("ddlInterType");
+        var selectedIntervention = intervention.options[intervention.selectedIndex].text;
+        if (selectedIntervention == null || selectedIntervention == "")
+        {
+            alert("Please select intervention ");
+            return false;
+        }
+        if (hour == null || hour == "") {
+            alert("Intervention hours can't be blank");
+            
+            document.getElementById("txtInterventionHours").focus();
+            document.getElementById("txtInterventionHours").value = "";
+            return false;
+        }
+        if (!/^[0-9]+(.[0-9]+)?$/.test(hour)) {
+            alert("Numbers only");
+            return false;
+        }
+
+        if (cost == null || cost == "") {
+            alert("Intervention cost can't be blank");
+            document.getElementById("txtInterventionCosts").focus();
+            document.getElementById("txtInterventionCosts").value = "";
+            return false;
+        }
+        if (!/^[0-9]+(.[0-9]+)?$/.test(cost)) {
+            alert("Numbers only");
+            return false;
+        }
+
+        document.getElementById("ddlStatus").removeAttribute("disabled");
+        return true;
+    }
+    
+    function CostAndHoursValueChanged(interventionName)
+    {
+        var interventions = @Html.Raw(Json.Encode(Model));
+        
+        for (var i = 0; i < interventions.length; i++)
+        {
+            var intervention = interventions[i];
+           
+            if (interventionName == intervention.interventionName.trim())
+            {
+                document.getElementById("txtInterventionHours").value = intervention.interventionDefaultHours;
+                document.getElementById("txtInterventionCosts").value = intervention.interventionDefaultCost;
+            }
+        }
+
+    }
+
+   
+   function ExceedSELimitHours(hour)
+   {
+       testforNumber(hour);
+       if (parseFloat(hour) > parseFloat(@ViewBag.DefaultHours))
+        {
+           
+            document.getElementById("ddlStatus").disabled = true;
+
+        }
+      
+    }
+    function ExceedSELimitCosts(cost)
+    {
+        testforNumber(cost);
+       if (parseFloat(cost) > parseFloat(@ViewBag.DefaultCost))
+       {
+           document.getElementById("ddlStatus").disabled= true;
+       }
+    }
+</script>

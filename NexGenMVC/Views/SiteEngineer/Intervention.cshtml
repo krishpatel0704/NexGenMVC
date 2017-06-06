@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NexGenMVC.Models.GetInterventions_Result>
+﻿@model IEnumerable<NexGenMVC.Models.Fn_GetIntervention_Result1>
 @*@model IEnumerable<NexGenMVC.Models.Fn_GetClint_Result>*@
 @{
     ViewBag.Title = "Intervention";
@@ -13,7 +13,15 @@
 </p>
 <table class="table">
     <tr>
-       
+        <th>
+            @Html.DisplayNameFor(model => model.interventionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.clientID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.interventionTypeName)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.interventionHours)
         </th>
@@ -23,10 +31,10 @@
         <th>
             @Html.DisplayNameFor(model => model.status)
         </th>
-       
-        <th>
-            @Html.DisplayNameFor(model => model.interventionTypeName)
-        </th>
+       <th>
+           @Html.DisplayNameFor(model =>model.notification)
+       </th>
+      
        
        
         
@@ -35,7 +43,16 @@
 
 @foreach (var item in Model) {
     <tr>
-       
+       <td>
+           @Html.DisplayFor(modelItem=>item.interventionId)
+       </td>
+        <td>
+            @Html.DisplayFor(modelItem=>item.clientID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.interventionTypeName)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.interventionHours)
         </td>
@@ -45,17 +62,21 @@
         <td>
             @Html.DisplayFor(modelItem => item.status)
         </td>
-        
+ 
+       @if (item.status.Trim() == "Proposed" || item.status.Trim() == "Approved")
+       {
         <td>
-            @Html.DisplayFor(modelItem => item.interventionTypeName)
+            @Html.ActionLink("EditIntervention", "EditIntervention", new { id = item.interventionId }) 
         </td>
+       }
        
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.interventionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.interventionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.interventionId })
-        </td>
+           @if(item.notification==1)
+           {
+               <td>
+                   <img src="~/Images/collapse_panel.png" />
+                   </td>
+           }
+       
     </tr>
 }
 

@@ -14,11 +14,12 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.clientName)
+            @Html.DisplayNameFor(model => model.clientId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.clientDistrict)
+            @Html.DisplayNameFor(model => model.clientName)
         </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.clientDesLocation)
         </th>
@@ -28,11 +29,12 @@
 @foreach (var item in ViewData.Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.clientName)
+            @Html.DisplayFor(modelItem => item.clientId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.clientDistrict)
+            @Html.DisplayFor(modelItem => item.clientName)
         </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.clientDesLocation)
         </td>

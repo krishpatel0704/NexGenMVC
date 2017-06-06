@@ -23,8 +23,8 @@
                 <ul class="nav navbar-nav">
                     
                     <li><a href="@Url.Action("Home", "Index", "Home")" class="elements"><span>Home</span></a></li>
-                    <li><a href="@Url.Action("Report", "Report", "Report")"class="elements"><span>Reports</span></a></li>
-                    <li><a href="@Url.Action("Manage", "Manage", "Manage")"class="elements"><span>Manage Users</span></a></li>
+                    <li><a href="@Url.Action("Report","Accountant", "Report")"class="elements"><span>Reports</span></a></li>
+                    <li><a href="@Url.Action("ManageUsers", "Accountant", "ManageUsers")"class="elements"><span>Manage Users</span></a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

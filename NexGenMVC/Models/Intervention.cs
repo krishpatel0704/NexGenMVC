@@ -30,6 +30,7 @@ namespace NexGenMVC.Models
         public System.DateTime interventionDate { get; set; }
         public string interventionTypeName { get; set; }
         public string district { get; set; }
+        public Nullable<int> notification { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuditIntervention> AuditIntervention { get; set; }

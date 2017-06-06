@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_SiteEngineerLayoutPage.cshtml";
+}
+
+<h2>Report</h2>
+<a href="@Url.Action("TotCostEngineer", "Accountant", "TotCostEngineer")" class="elements"><span>Total Cost By Engineer</span></a>
+<a href="@Url.Action("AvgCostEngineer", "Accountant", "AvgCostEngineer")" class="elements"><span>Average Cost by Engineer</span></a>
+<a href="@Url.Action("CostByDistrict", "Accountant", "CostByDistrict")" class="elements"><span>Costs By District</span></a>
+<a href="@Url.Action("CostByMonthDistrict", "Accountant", "CostByMonthDistrict")" class="elements"><span>Monthly Cost By District</span></a>
+<table style="margin-left: 20px">
+    <tr>
+        <td>Reports : </td>
+        <td>
+            <select class="form-control" id="ddlReport">
+                <option value="0">Select</option>
+                <option value="1">Total Cost By Engineer</option>
+                <option value="2">Average Cost by Engineer</option>
+                <option value="3">Costs By District</option>
+                <option value="4">Monthly Cost By District</option>
+            </select>
+        </td>
+        <td><input id="View" type="submit" name="Create" value="View" onclick="fnExportData()" /></td>
+    </tr>
+    <tr>
+      
+    </tr>
+</table>
+<table>
+    <div id="dialog-content">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" AsyncRendering="false" SizeToReportContent="true">
+        </rsweb:ReportViewer>   
+    </div>
+</table>
+<script>   
+    
+     function fnExportData() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Report", "Accountant")',
+            data: {
+                strId: $("#ddlReport").val(),                
+            },
+            success: function (result) {
+                $('#dialog-content').html(result);
+            },
+            error: function (ex) {
+            }
+        });
+    }
+</script>
+

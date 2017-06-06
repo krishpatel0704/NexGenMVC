@@ -1,0 +1,82 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "NewAudit";
+    Layout = "~/Views/Shared/_SiteEngineerLayoutPage.cshtml";
+}
+
+<h2>NewAudit</h2>
+<h2>View</h2>
+@using (Html.BeginForm("NewAudit", "SiteEngineer", FormMethod.Post))
+{
+    <form id="frmNewAudit">
+        <table class="table table-bordered" style="margin-left: 20px; border-collapse: separate; border-spacing: 8px;">
+            <tr>
+                <td style="text-align: right">Audit Id</td>
+                @* <td style="text-align: left"><input style="width:100%;display:none;" class="form-control" type="text" id="txtClientId" n0ame="txtClientId" value="@Model.ToString()" /></td>*@
+                <td style="text-align: left"><input type="text" id="txtAuditId" name="txtAuditId" value="@Model" readonly /></td>
+            </tr>
+            <tr>
+                <td style="text-align: right">Intervention Id</td>
+               
+              <td>
+                  <select id="ddlInterventionID" name="ddlInterventionID" >
+                      
+                      @foreach(var item in ViewBag.Intervention)
+                      {
+                          <option>@item.interventionId</option>
+                      }
+                  </select>
+              </td>
+            </tr>
+            <tr>
+                <td style="text-align: right">Intervention Life</td>
+                <td style="text-align: left"><input type="text" id="txtInterventionLife" name="txtInterventionLife" onchange="checkForNumber(this.value)" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: right">Comment</td>
+                <td style="text-align: left"><textarea id="txtComment" name="txtComment" rows="5" cols="10"></textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="NewAudit" onclick="return validationBeforeSubmit()" value="NewAudit" /></td>
+            </tr>
+
+        </table>
+    </form>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function checkForNumber(number) {
+        if (!/^[0-9][0-9]?$|^100$/.test(number)) {
+            alert("Only number between 0-100");
+        }
+    }
+    function validationBeforeSubmit()
+    {
+        var life = document.getElementById("txtInterventionLife").value;
+        var comment = document.getElementById("txtComment").value;
+        if (life == "" || life == null) {
+            alert("Plase enter life");
+            return false;
+        }
+        else if (comment == "" || comment == null)
+        {
+            alert("Please enter comment");
+            return false;
+        }
+        if (!/^[0-9][0-9]?$|^100$/.test(life)) {
+            alert("Only number between 0-100");
+            return false;
+        }
+
+    }
+</script>
