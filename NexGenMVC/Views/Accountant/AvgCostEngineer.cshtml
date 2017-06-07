@@ -1,0 +1,24 @@
+﻿@model IEnumerable<NexGenMVC.Models.Fn_Report_Result>
+
+@{
+    ViewBag.Title = "TotCostEngineer";
+    Layout = "~/Views/Shared/_AccountantLayoutPage.cshtml";
+}
+
+<h2>Average Cost Engineer</h2>
+<table border="1">
+    <tr>
+        <th>Site Engineer Id</th>
+        <th> Average Hours Spend By SE</th>
+        <th>Average Cost Spend By SE</th>
+    </tr>
+    @foreach (var item in ViewData.Model)
+    {
+        <tr>
+
+            <td>@item.USERID</td>
+            <td>@item.Hours</td>
+            <td>@item.COST</td>
+        </tr>
+    }
+</table>

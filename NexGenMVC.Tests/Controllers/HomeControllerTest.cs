@@ -43,11 +43,25 @@ namespace NexGenMVC.Tests.Controllers
                 .Returns(new TestableObjectResult());
 
             var c = new SiteEngineerController(mockObject.Object);
-            var result = (ViewResult)c.NewClient();
-            Assert.IsNotNull(result.Model);
+            var result =(ViewResult) c.NewClient();
+           // Assert.IsNotNull(result.Model);
             Assert.AreEqual("", result.Model as string);
         }
+        [TestMethod]
+        public void Should_have_empty_page_when_creating_new_intervention()
+        {
+            var mockObject = new Mock<DefaultConnectionEntities>();
+            mockObject.Setup(cc => cc.Fn_GetInterventionId()).Returns(new TestableObjectResult()) ;
+            var objSE = new SiteEngineerController(mockObject.Object);
+           // objSE.
+            var result = objSE.NewInterventionIDGenerate();
+            Assert.AreEqual("", result as string);
+        }
+        [TestMethod]
+        public void Check_For_Default_Cost()
+        {
 
+        }
         [TestMethod]
         public void CheckDefaultCostHigher()
         {

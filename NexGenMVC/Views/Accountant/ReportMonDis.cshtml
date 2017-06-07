@@ -1,0 +1,24 @@
+﻿@model IEnumerable<NexGenMVC.Models.Fn_ReportMonthDis_Result>
+
+@{
+    ViewBag.Title = "TotCostEngineer";
+    Layout = "~/Views/Shared/_AccountantLayoutPage.cshtml";
+}
+
+<h2>Report By Month By District</h2>
+<table border="1">
+    <tr>
+        <th>Month</th>
+        <th> Cost</th>
+        <th>Hour</th>
+    </tr>
+    @foreach (var item in ViewData.Model)
+    {
+        <tr>
+            <td>@item.Mon</td>
+            <td>@item.COST</td>
+            <td>@item.Hours</td>
+
+        </tr>
+    }
+</table>

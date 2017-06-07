@@ -49,6 +49,21 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.WebForms.12.0.2402.15\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportViewerForMvc, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc.1.0.1\lib\net45\ReportViewerForMvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -206,6 +221,9 @@
     <Compile Include="Models\DefaultIntervention.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DistrictReport_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Fn_GetAuditIntervention_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
@@ -219,6 +237,12 @@
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Fn_GetDefaultIntervention_Result1.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fn_GetDistrictReport_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fn_GetInterventionForAudit_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Fn_GetInterventionForEdit_Result.cs">
@@ -245,6 +269,9 @@
     <Compile Include="Models\Fn_GetProposedInterventions_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Fn_ReportMonthDis_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Fn_Report_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
@@ -267,6 +294,9 @@
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetInterventionProposedForManager_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetInterventionsForAudit_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetInterventions_Result.cs">
@@ -295,6 +325,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportMonthDis_Result.cs">
+      <DependentUpon>NexGenEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reports_Result.cs">
       <DependentUpon>NexGenEntityModel.tt</DependentUpon>
@@ -332,6 +365,7 @@
       <DependentUpon>NexGenEntityModel.edmx</DependentUpon>
       <LastGenOutput>NexGenEntityModel.cs</LastGenOutput>
     </Content>
+    <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\NexGenEntityModel.edmx">
@@ -410,6 +444,10 @@
     <Content Include="Views\Manager\EditIntervention.cshtml" />
     <Content Include="Views\Accountant\Report.cshtml" />
     <Content Include="Views\Accountant\TotCostEngineer.cshtml" />
+    <Content Include="Views\Accountant\AvgCostEngineer.cshtml" />
+    <Content Include="Views\Accountant\CostByDistrict.cshtml" />
+    <Content Include="Views\Accountant\CostByMonthDistrict.cshtml" />
+    <Content Include="Views\Accountant\ReportMonDis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -424,7 +462,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\Report1.rdlc" />
-    <EmbeddedResource Include="Images\Tcost.rdlc" />
+    <EmbeddedResource Include="Images\Tcost.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

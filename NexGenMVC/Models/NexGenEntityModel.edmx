@@ -228,6 +228,7 @@ warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DistrictReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="EditInterventionSE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="InterventionStatus" Type="nvarchar" Mode="In" />
           <Parameter Name="InterventionId" Type="nvarchar" Mode="In" />
@@ -263,6 +264,12 @@ warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that
         <Function Name="GetInterventions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="GetInterventionsForAudit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetUserIdToSendMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InterventionId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="InsertAudit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AuditId" Type="varchar" Mode="In" />
           <Parameter Name="InterventionId" Type="varchar" Mode="In" />
@@ -282,9 +289,12 @@ warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that
         <Function Name="Procedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="uid" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="ReportMonthDis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="District" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Reports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Opt" Type="int" Mode="In" />
-          <Parameter Name="District" Type="nvarchar" Mode="In" />
+          <Parameter Name="District" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="DefaultConnectionModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
@@ -702,6 +712,26 @@ warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that
             <Parameter Name="Opt" Mode="In" Type="Int32" />
             <Parameter Name="District" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetUserIdToSendMail" ReturnType="Collection(String)">
+          <Parameter Name="InterventionId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetUserIdToSendMail" ReturnType="Collection(String)">
+          <Parameter Name="InterventionId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DistrictReport" ReturnType="Collection(DefaultConnectionModel.DistrictReport_Result)" />
+          <FunctionImport Name="Fn_GetDistrictReport" ReturnType="Collection(DefaultConnectionModel.Fn_GetDistrictReport_Result)" />
+          <FunctionImport Name="ReportMonthDis" ReturnType="Collection(DefaultConnectionModel.ReportMonthDis_Result)">
+          <Parameter Name="District" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_ReportMonthDis" ReturnType="Collection(DefaultConnectionModel.Fn_ReportMonthDis_Result)">
+          <Parameter Name="District" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetInterventionsForAudit" ReturnType="Collection(DefaultConnectionModel.GetInterventionsForAudit_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_GetInterventionForAudit" ReturnType="Collection(DefaultConnectionModel.Fn_GetInterventionForAudit_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetClient_Result">
           <Property Type="String" Name="clientId" Nullable="false" MaxLength="100" />
@@ -869,6 +899,44 @@ warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that
           <Property Type="String" Name="USERID" Nullable="false" MaxLength="256" />
           <Property Type="Double" Name="Hours" Nullable="true" />
           <Property Type="Double" Name="COST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DistrictReport_Result">
+          <Property Type="String" Name="DISTRICT" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Hours" Nullable="true" />
+          <Property Type="Double" Name="COST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetDistrictReport_Result">
+          <Property Type="String" Name="DISTRICT" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Hours" Nullable="true" />
+          <Property Type="Double" Name="COST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ReportMonthDis_Result">
+          <Property Type="String" Name="Column1" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Hours" Nullable="true" />
+          <Property Type="Double" Name="COST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_ReportMonthDis_Result">
+          <Property Type="String" Name="Mon" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Hours" Nullable="true" />
+          <Property Type="Double" Name="COST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetInterventionsForAudit_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="notification" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Fn_GetInterventionForAudit_Result">
+          <Property Type="String" Name="interventionId" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="clientID" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="interventionTypeName" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="interventionHours" Nullable="false" />
+          <Property Type="Double" Name="interventionCost" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="notification" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1214,6 +1282,70 @@ warning 6035: The relationship 'FK__tblUsers__userId__44952D46' has columns that
                 <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="Hours" ColumnName="Hours" />
                 <ScalarProperty Name="COST" ColumnName="COST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserIdToSendMail" FunctionName="DefaultConnectionModel.Store.GetUserIdToSendMail" />
+          <FunctionImportMapping FunctionImportName="Fn_GetUserIdToSendMail" FunctionName="DefaultConnectionModel.Store.GetUserIdToSendMail" />
+          <FunctionImportMapping FunctionImportName="DistrictReport" FunctionName="DefaultConnectionModel.Store.DistrictReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.DistrictReport_Result">
+                <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetDistrictReport" FunctionName="DefaultConnectionModel.Store.DistrictReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetDistrictReport_Result">
+                <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReportMonthDis" FunctionName="DefaultConnectionModel.Store.ReportMonthDis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.ReportMonthDis_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_ReportMonthDis" FunctionName="DefaultConnectionModel.Store.ReportMonthDis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_ReportMonthDis_Result">
+                <ScalarProperty Name="Mon" ColumnName="Mon" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetInterventionsForAudit" FunctionName="DefaultConnectionModel.Store.GetInterventionsForAudit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.GetInterventionsForAudit_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notification" ColumnName="notification" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fn_GetInterventionForAudit" FunctionName="DefaultConnectionModel.Store.GetInterventionsForAudit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DefaultConnectionModel.Fn_GetInterventionForAudit_Result">
+                <ScalarProperty Name="interventionId" ColumnName="interventionId" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="interventionTypeName" ColumnName="interventionTypeName" />
+                <ScalarProperty Name="interventionHours" ColumnName="interventionHours" />
+                <ScalarProperty Name="interventionCost" ColumnName="interventionCost" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notification" ColumnName="notification" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

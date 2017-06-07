@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "CostByMonthDistrict";
+    Layout = "~/Views/Shared/_AccountantLayoutPage.cshtml";
+}
+
+<h2>CostByMonthDistrict</h2>
+@using (Html.BeginForm("CostByMonthDistrict", "Accountant", FormMethod.Post))
+{
+    <form id="frmReport">
+
+<table>
+    <tr>
+    <td style="text-align: left">
+        <select id="ddlDistrict" name="ddlDistrict">
+            <option>Urban Indonesia</option>
+            <option>Rural Indonesia</option>
+            <option>Urban Papua New Guinea</option>
+            <option>Rural Papua New Guinea</option>
+            <option>Sydney</option>
+            <option>Rural New South Wales</option>
+        </select>
+        
+    </td>
+    </tr>
+    <tr>
+        <td><input type="submit" id="CostByMonthDistrict" name="CostByMonthDistrict"  value="CostByMonthDistrict" /></td>
+    </tr>
+
+</table>
+    </form>
+}

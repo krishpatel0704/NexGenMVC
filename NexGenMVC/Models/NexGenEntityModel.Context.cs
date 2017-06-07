@@ -473,5 +473,69 @@ namespace NexGenMVC.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_Report_Result>("Fn_Report", optParameter, districtParameter);
         }
+    
+        public virtual ObjectResult<string> GetUserIdToSendMail(string interventionId)
+        {
+            var interventionIdParameter = interventionId != null ?
+                new ObjectParameter("InterventionId", interventionId) :
+                new ObjectParameter("InterventionId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserIdToSendMail", interventionIdParameter);
+        }
+    
+        public virtual ObjectResult<string> Fn_GetUserIdToSendMail(string interventionId)
+        {
+            var interventionIdParameter = interventionId != null ?
+                new ObjectParameter("InterventionId", interventionId) :
+                new ObjectParameter("InterventionId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Fn_GetUserIdToSendMail", interventionIdParameter);
+        }
+    
+        public virtual ObjectResult<DistrictReport_Result> DistrictReport()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DistrictReport_Result>("DistrictReport");
+        }
+    
+        public virtual ObjectResult<Fn_GetDistrictReport_Result> Fn_GetDistrictReport()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_GetDistrictReport_Result>("Fn_GetDistrictReport");
+        }
+    
+        public virtual ObjectResult<ReportMonthDis_Result> ReportMonthDis(string district)
+        {
+            var districtParameter = district != null ?
+                new ObjectParameter("District", district) :
+                new ObjectParameter("District", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReportMonthDis_Result>("ReportMonthDis", districtParameter);
+        }
+    
+        public virtual ObjectResult<Fn_ReportMonthDis_Result> Fn_ReportMonthDis(string district)
+        {
+            var districtParameter = district != null ?
+                new ObjectParameter("District", district) :
+                new ObjectParameter("District", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_ReportMonthDis_Result>("Fn_ReportMonthDis", districtParameter);
+        }
+    
+        public virtual ObjectResult<GetInterventionsForAudit_Result> GetInterventionsForAudit(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetInterventionsForAudit_Result>("GetInterventionsForAudit", userIdParameter);
+        }
+    
+        public virtual ObjectResult<Fn_GetInterventionForAudit_Result> Fn_GetInterventionForAudit(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fn_GetInterventionForAudit_Result>("Fn_GetInterventionForAudit", userIdParameter);
+        }
     }
 }

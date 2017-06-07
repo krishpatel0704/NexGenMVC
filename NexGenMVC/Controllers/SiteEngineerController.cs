@@ -64,7 +64,9 @@ namespace NexGenMVC.Controllers
         }
         public ActionResult NewAudit()
         {
-            ViewBag.Intervention = _context.Fn_GetIntervention(User.Identity.Name);
+            var objInterventions = _context.Fn_GetInterventionForAudit(User.Identity.Name);
+            ViewBag.Intervention = objInterventions;
+            ViewBag.Count = objInterventions.ToList().Count;
             return View((object)NewAuditIDGenerate());
         }
 
@@ -158,7 +160,7 @@ namespace NexGenMVC.Controllers
             }
         }
 
-        private string NewClientIDGenerate()
+        public  string NewClientIDGenerate()
         {
             string cID = _context.Fn_GetClientId("", 2, "", "", "").AsQueryable().First().ToString();
             if (cID != "")
@@ -173,9 +175,18 @@ namespace NexGenMVC.Controllers
             {
                 return "C1";
             }
+            //var clientNumber = _context.Fn_GetClientId("", 2, "", "", "").ToList();
+            //if (clientNumber.Count == 0)
+            //{
+            //    return "C1";
+            //}else
+            //{
+            //    return "C" + (Convert.ToInt32(clientNumber[1]) + 1);
+            //}
+
 
         }
-        private string NewInterventionIDGenerate()
+        public string NewInterventionIDGenerate()
         {
             string interventionID = _context.Fn_GetInterventionId().AsQueryable().First().ToString();
             if (interventionID != "")
@@ -192,7 +203,7 @@ namespace NexGenMVC.Controllers
             }
 
         }
-        private string NewAuditIDGenerate()
+        public string NewAuditIDGenerate()
         {
             string auditID = _context.Fn_GetAuditId().AsQueryable().First().ToString();
             if (auditID != "")

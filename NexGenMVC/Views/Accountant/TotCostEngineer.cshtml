@@ -5,10 +5,20 @@
     Layout = "~/Views/Shared/_AccountantLayoutPage.cshtml";
 }
 
-<h2>TotCostEngineer</h2>
-<table>
+<h2>Total Cost Engineer</h2>
+<table border="1" >
+    <tr>
+        <th>Site Engineer Id</th>
+        <th>Hours Spend By SE</th>
+        <th>Cost Spend By SE</th>
+    </tr>
 @foreach(var item in ViewData.Model)
 {
-
+    <tr>
+    
+    <td>@item.USERID</td>
+    <td>@item.Hours</td>
+        <td>@item.COST</td>
+    </tr>
 }
  </table>

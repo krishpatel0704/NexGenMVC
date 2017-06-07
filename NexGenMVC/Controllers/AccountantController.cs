@@ -1,4 +1,5 @@
-﻿using NexGenMVC.Models;
+﻿using Microsoft.Reporting.WebForms;
+using NexGenMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,33 +20,16 @@ namespace NexGenMVC.Controllers
             _context = context;
         }
 
-        
+
         // GET: Accountant
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Report(string strId)
+     
+        public ActionResult Report()
         {
-            try
-            {
-                using (DefaultConnectionEntities dc = new DefaultConnectionEntities())
-                {
-                    var customers = dc.Fn_Report(Convert.ToInt32(strId), null);
-                    //ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/RPTReports/rptCustomer.rdlc");
-                    //ReportViewer1.LocalReport.DataSources.Clear();
-                    //ReportDataSource rdc = new ReportDataSource("MyDataset", customers);
-                    //ReportViewer1.LocalReport.DataSources.Add(rdc);
-                    //ReportViewer1.LocalReport.Refresh();
-
-                    return View();
-                }
-            }
-            catch (Exception)
-            {
-                return View();
-            }
-            
+            return View();
         }
         public ActionResult TotCostEngineer()
         {
@@ -54,59 +38,63 @@ namespace NexGenMVC.Controllers
                 var objR = _context.Fn_Report(1, "");
                 ViewData.Model = objR.ToList();
                 return View();
-            }catch(Exception)
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+        public ActionResult CostByDistrict()
+        {
+            try
+            {
+                var objR = _context.Fn_GetDistrictReport();
+                ViewData.Model = objR.ToList();
+                return View();
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+        public ActionResult AvgCostEngineer()
+        {
+            try
+            {
+                var objR = _context.Fn_Report(2, "");
+                ViewData.Model = objR.ToList();
+                return View();
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult CostByMonthDistrict(FormCollection frmReport)
+        {
+            try
+            {
+                var objR = _context.Fn_ReportMonthDis(frmReport["ddlDistrict"]);
+                ViewData.Model = objR.ToList();
+;                return View("ReportMonDis");
+            }
+            catch(Exception)
             {
                 return View();
             }
         }
 
-        //public ActionResult TotCostEngineer(string strId)
-        //{
-        //    try
-        //    {   
-        //        using (DefaultConnectionEntities dc = new DefaultConnectionEntities())
-        //        {
-        //            var customers = dc.Fn_Report(Convert.ToInt32(strId),null);
-        //            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/RPTReports/rptCustomer.rdlc");
-        //            ReportViewer1.LocalReport.DataSources.Clear();
-        //            ReportDataSource rdc = new ReportDataSource("MyDataset", customers);
-        //            ReportViewer1.LocalReport.DataSources.Add(rdc);
-        //            ReportViewer1.LocalReport.Refresh();
-        //        }
-        //        //CRM.Models.ReportModel obj = new CRM.Models.ReportModel();
-        //        //CRM.Models.cdbConnection objConn = new CRM.Models.cdbConnection();
-        //        //DataSet ds = new DataSet();
-
-        //        //SqlCommand cmd = new SqlCommand();
-        //        //cmd.CommandText = "GetAllLocationHistory";
-        //        //cmd.CommandType = CommandType.StoredProcedure;
-
-        //        //cmd.Parameters.Clear();
-        //        //cmd.Parameters.AddWithValue("@SalesPersonID", Convert.ToString(SID));
-        //        //cmd.Parameters.AddWithValue("@FromDate", Convert.ToString(Date));
-        //        //cmd.Parameters.AddWithValue("@Chk", 1);
-
-        //        //obj.ReportTrackingDs = objConn.getDataBy_DataSet(cmd);
-
-        //        //if (obj.ReportTrackingDs != null && obj.ReportTrackingDs.Tables.Count > 0 && obj.ReportTrackingDs.Tables[0].Rows.Count > 0)
-        //        //{
-        //        //    if (obj.ReportTrackingDs.Tables[0].Columns.Contains("SalesPersonId"))
-        //        //    {
-        //        //        obj.ReportTrackingDs.Tables[0].Columns.Remove("SalesPersonId");
-        //        //    }
-
-        //        //    return new CsvActionResult(obj.ReportTrackingDs.Tables[0]) { FileDownloadName = "AllLogReport.csv" };
-        //        //}
-        //        //else
-        //        //{
-        //        return View();
-        //        //}
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-    }
+        public ActionResult CostByMonthDistrict()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+        }
 }
